@@ -1,2 +1,2 @@
 #!/bin/bash
-chown -R vincent:staff pwd
+find .-type d -exec chown vincent:users {} +

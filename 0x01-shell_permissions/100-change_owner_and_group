@@ -1,2 +1,2 @@
 #!/bin/bash
-find .-type d -exec chown vincent:users {} +
+find . -type d -exec chown vincent:school {} +

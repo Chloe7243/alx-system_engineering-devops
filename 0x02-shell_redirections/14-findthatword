@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "Hello World"| "\n"
+cat /etc/passwd | grep -e "root"

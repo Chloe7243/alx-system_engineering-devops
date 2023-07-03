@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# This script is displaying the content of the current directory in a list format.
+# Where only the part of the name after the first dash is displayed (refer to the example)
+
+FILE="/etc/passwd"
+while IFS=: read -r username password uid gid user_info home_directory shell
+do
+    echo "The user $username is part of the group $gid gang, lives in $home_directory and rides $shell. $uid's place is protected by the passcode $password, more info about the user here: $user_info"
+done < "$FILE"

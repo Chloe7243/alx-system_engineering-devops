@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# This script is displaying the content of the current directory in a list format.
+# Where only the part of the name after the first dash is displayed (refer to the example)
+
+log_file="apache-access.log"
+grouped_data=$(awk '{count[$1" "$9]++} END {for (key in count) print count[key], key}' "$log_file")
+sorted_data=$(echo "$grouped_data" | sort -rn)
+echo "$sorted_data"
+

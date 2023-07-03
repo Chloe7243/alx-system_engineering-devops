@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# This script is displaying the content of the current directory in a list format.
+# Where only the part of the name after the first dash is displayed (refer to the example)
+
+FILE="/etc/passwd"
+for file in $FILE
+do
+	cut -f1,3,6 -d: $file
+done

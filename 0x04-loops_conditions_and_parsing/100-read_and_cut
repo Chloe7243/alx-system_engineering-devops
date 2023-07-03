@@ -3,7 +3,7 @@
 # Where only the part of the name after the first dash is displayed (refer to the example)
 
 FILE="/etc/passwd"
-for file in $FILE
+while IFS= read -r line
 do
-	cut -f1,3,6 -d: $file
-done
+	echo $line | cut -f1,3,6 -d:
+done < $FILE

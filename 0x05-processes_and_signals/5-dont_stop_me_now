@@ -2,7 +2,7 @@
 # Displays lines containing the word bash.
 
 pid=$(pgrep "bash ./4-to_infinity_and_beyond" -f)
-if [ $pid ]
+if [ "$pid" ]
 then
-	kill $pid
+	kill "$pid"
 fi

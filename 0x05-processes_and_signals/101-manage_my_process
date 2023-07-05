@@ -11,7 +11,7 @@ stop () {
 	if [ -e "$process" ]
 	then
 		pid=$(cat "$process")
-		kill $pid && rm $process
+		kill "$pid" && rm $process
 	fi
 }
 

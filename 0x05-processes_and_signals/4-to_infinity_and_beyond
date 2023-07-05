@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Displays lines containing the word bash.
+
+while true
+do
+	echo "To infinity and beyond"
+done

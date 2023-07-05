@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Displays lines containing the word bash.
+
+pkill "./7-highlander" -f

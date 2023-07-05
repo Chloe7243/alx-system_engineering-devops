@@ -7,9 +7,9 @@ do
 	pid=${pid%*/}
 	pid=${pid##*/}
 	echo -n "${pid} "
-	if grep -q "bash" $cmd
+	if grep -q "bash" "$cmd"
 	then
-		cat $cmd
+		cat "$cmd"
 	fi
 	echo
 done

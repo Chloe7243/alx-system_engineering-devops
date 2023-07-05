@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Displays lines containing the word bash.
+
+for pid in /proc/[0-9]*/
+do
+	cmd="${pid}cmdline"
+	pid=${pid%*/}
+	pid=${pid##*/}
+	echo -n "${pid} "
+	cat $cmd
+	echo
+done

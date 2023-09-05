@@ -1,5 +1,5 @@
 $location = '/etc/nginx/sites-available/default'
-$file_url = './default'
+$file_url = 'https://raw.githubusercontent.com/Chloe7243/alx-system_engineering-devops/main/0x0C-web_server/default'
 
 # Run apt-get update
 exec { 'apt-update':

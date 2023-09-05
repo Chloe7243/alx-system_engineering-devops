@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
-# Redirect nginx web server
+# Install nginx web server
 
 sudo apt-get -y update
 sudo apt-get -y install nginx
 echo 'Hello World!' | sudo tee /var/www/html/index.nginx-debian.html
 
-error_page="\\\terror_page 404 /404.html;\n"
 default_sites="/etc/nginx/sites-available/default"
 line=$(grep -Fn location $default_sites | head -1 | cut -d":" -f1)
 replace_w="\\\tlocation /redirect_me {\n\t\treturn 301 http://dev-steph.tech;\n\t}\n\n"
+error_page="\\\terror_page 404 /404.html;\n"
 
 echo "Ceci n'est pas une page" | sudo tee "/var/www/html/404.html"
 
 sudo sed -i "${line}i ${replace_w}" ${default_sites}
 sudo sed -i "${line}i ${error_page}" ${default_sites}
-sudo service nginx start
+sudo service nginx restart

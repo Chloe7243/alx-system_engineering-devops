@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+domain=$1
+print_domain_info() {
+	details=$(dig "$1.$domain" | awk '/;; ANSWER SECTION:/ {found=1 ; next} found == 1 {print $4 "\t" $5; exit}')
+	echo "The subdomain $1 is a $(echo "$details" | cut -f1) record and points to $(echo "$details" | cut -f2)"
+}
+subdomains=('www' 'lb-01' 'web-01' 'web-02')
+if [[ $# -ge 2 ]]; then
+   print_domain_info "$2"
+else
+   for sd in "${subdomains[@]}"; do
+	print_domain_info "$sd"
+   done
+fi

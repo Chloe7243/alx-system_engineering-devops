@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Configure web-01 so that its firewall redirects port 8080/TCP to port 80/TCP
+
+lines=$(sudo grep -n "forward" /etc/ufw/sysctl.conf | cut -d":" -f1)
+for n in $lines; do
+   sudo sed -i "$n s/#//" /etc/ufw/sysctl.conf
+done
+
+line=$(sudo grep -n "End required lines" /etc/ufw/before.rules | head -1 | cut -d":" -f1)
+table="\\\n*nat\n:PREROUTING ACCEPT [0:0]\n-A PREROUTING -p tcp --dport 54.144.128.232:8080 -j DNAT --to-destination 80"
+sudo sed -i "$((line - 1))a $table" /etc/ufw/before.rules
+
+sudo ufw allow 8080/tcp
+yes | sudo ufw enable

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# who are you?
+sudo -u "$1" whoami

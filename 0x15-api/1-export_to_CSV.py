@@ -2,6 +2,7 @@
 """Gather data from an API"""
 import requests
 from sys import argv
+import csv
 
 
 if __name__ == "__main__":
@@ -13,9 +14,7 @@ if __name__ == "__main__":
         response2 = requests.get(
                 f"https://jsonplaceholder.typicode.com/users/{uid}/todos")
         tasks = response2.json()
-        td = list(filter(lambda task: task['completed'] is True, tasks))
-        tl = len(tasks)
-        result = f"Employee {user['name']} is done with tasks({len(td)}/{tl}):"
-        print(result)
-        for task in td:
-            print(f"\t {task['title']}")
+        with open(f"{uid}.csv", 'w') as file:
+            w = csv.writer(file, quoting=csv.QUOTE_ALL)
+            for t in tasks:
+                w.writerow([uid, user['name'], t['completed'], t['title']])

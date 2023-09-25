@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """Gather data from an API"""
+import json
 import requests
 from sys import argv
-import csv
 
 
 if __name__ == "__main__":
@@ -14,7 +14,10 @@ if __name__ == "__main__":
         response2 = requests.get(
                 f"https://jsonplaceholder.typicode.com/users/{uid}/todos")
         tasks = response2.json()
-        with open(f"{uid}.csv", 'w') as file:
-            w = csv.writer(file, quoting=csv.QUOTE_ALL)
-            for t in tasks:
-                w.writerow([uid, user['username'], t['completed'], t['title']])
+
+        def task_data(t):
+            return {"task": t['title'],
+                    "completed": t['completed'], "username": user['username']}
+        data = {uid: list(map(task_data, tasks))}
+        with open(f"{uid}.json", 'w') as file:
+            json.dump(data, file)

@@ -5,7 +5,6 @@ import requests
 
 
 if __name__ == "__main__":
-    
     data = {}
 
     response = requests.get(

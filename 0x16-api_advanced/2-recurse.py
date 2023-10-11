@@ -4,6 +4,7 @@ import requests
 
 
 def recurse(subreddit, hot_list=[], after=None):
+    """ recursion """
     sr = subreddit
     res = requests.get(f"https://www.reddit.com/r/{sr}/hot.json?after={after}",
                        headers={"User-Agent": "My-User-Agent"},

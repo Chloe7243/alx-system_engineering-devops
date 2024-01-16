@@ -5,13 +5,8 @@
 import sys
 
 if __name__ == '__main__':
-    recurse = __import__('2-recurse').recurse
+    number_of_subscribers = __import__('0-subs').number_of_subscribers
     if len(sys.argv) < 2:
         print("Please pass an argument for the subreddit to search.")
     else:
-        result = recurse(sys.argv[1])
-        print(result)
-        if result is not None:
-            print(len(result))
-        else:
-            print("None")
+        print("{:d}".format(number_of_subscribers(sys.argv[1])))

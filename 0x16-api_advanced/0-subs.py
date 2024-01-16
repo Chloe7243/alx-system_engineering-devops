@@ -1,12 +1,11 @@
 #!/usr/bin/python3
 """ 0. How many subs? """
-import requests
 
 
 def number_of_subscribers(subreddit):
+    """Returns the number of subscribers in a subreddit"""
+    import requests
     res = requests.get(f"https://www.reddit.com/r/{subreddit}/about.json",
                        headers={"User-Agent": "My-User-Agent"},
                        allow_redirects=False)
-    if res.status_code >= 300:
-        return 0
-    return res.json()["data"]["subscribers"]
+    return 0 if res.status_code != 200 else res.json()['data']['subscribers']

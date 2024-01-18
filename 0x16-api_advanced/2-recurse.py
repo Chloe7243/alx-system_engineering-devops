@@ -1,20 +1,28 @@
 #!/usr/bin/python3
-""" 2. recurser """
-import requests
+"""Module for task 2"""
 
 
-def recurse(subreddit, hot_list=[], after=None):
-    """ recursion """
-    sr = subreddit
-    res = requests.get(f"https://www.reddit.com/r/{sr}/hot.json?after={after}",
-                       headers={"User-Agent": "My-User-Agent"},
-                       allow_redirects=False)
+def recurse(subreddit, hot_list=[], count=0, after=None):
+    """Queries the Reddit API and returns all hot posts
+    of the subreddit"""
+    import requests
 
-    if res.status_code >= 400:
+    sub_info = requests.get("https://www.reddit.com/r/{}/hot.json"
+                            .format(subreddit),
+                            params={"count": count, "after": after},
+                            headers={"User-Agent": "My-User-Agent"},
+                            allow_redirects=False)
+    if sub_info.status_code >= 400:
         return None
 
-    d = res.json()
-    result = hot_list + [p['data']['title'] for p in d['data']['children']]
-    if not d['data']['after']:
-        return result
-    return recurse(subreddit, result, d['data']['after'])
+    hot_l = hot_list + [child.get("data").get("title")
+                        for child in sub_info.json()
+                        .get("data")
+                        .get("children")]
+
+    info = sub_info.json()
+    if not info.get("data").get("after"):
+        return hot_l
+
+    return recurse(subreddit, hot_l, info.get("data").get("count"),
+                   info.get("data").get("after"))

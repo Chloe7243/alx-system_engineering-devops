@@ -1,16 +1,17 @@
 #!/usr/bin/python3
-""" 1. Top Ten """
-import requests
+""" Reddit API """
 
 
 def top_ten(subreddit):
-    sr = subreddit
-    res = requests.get(f"https://www.reddit.com/r/{sr}/hot.json?limit=10",
+    """Returns the top 10 hot posts of the subreddit"""
+    import requests
+
+    res = requests.get("https://www.reddit.com/r/{}/hot.json?limit=10"
+                       .format(subreddit),
                        headers={"User-Agent": "My-User-Agent"},
                        allow_redirects=False)
-
-    if res.status_code != 200:
-        print(None)
+    if res.status_code >= 300:
+        print('None')
     else:
-        for post in res.json()['data']['children']:
-            print(post['data']['title'])
+        [print(post.get["data"]["title"])
+         for post in res.json()["data"]["children"]]
